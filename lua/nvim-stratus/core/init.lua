@@ -18,7 +18,6 @@ end
 
 
 M.attach_component = function (opts)
-
   opts.detach_on = opts.detach_on or false
 
   -- NOTE: Maybe don't need a variable for `name` and we can just convert the function call variable to its name variable? Create highlight group for the component.
@@ -45,8 +44,10 @@ M.attach_component = function (opts)
 
   local separator = M.add_separator(opts.separator.right, opts.detach_on)
 
+  _G.stratus = opts.operation
+
   c1 = '%#' .. name .. '_l#' .. separator
-  c2 = '%#' .. name .. '#' .. '%{%v:lua.' .. opts.operation .. '%}'
+  c2 = '%#' .. name .. '#' .. "%{v:lua.stratus()}"
   c3 = '%#' .. name .. '_r#' ..  separator
 
   require('nvim-stratus').compile({c1, c2, c3})
@@ -56,6 +57,5 @@ end
 
 M.detach_component = function ()
 end
-
 
 return M
