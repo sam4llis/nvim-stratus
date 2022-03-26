@@ -1,12 +1,18 @@
 -- TODO: Create components for word count, spell=on, etc.
--- TODO: Create an update/build function that holds vim.g.stratus, so don't have to do this call again.
+
+-- TODO: Check whether we actually require Neovim 0.7.0.
+if vim.fn.has('nvim-0.7.0') ~= 1 then
+  vim.api.nvim_err_writeln("The plugin 'nvim-stratus' requires Neovim 0.7.0.")
+  vim.api.nvim_err_writeln("Please update your Neovim.")
+  return
+end
 
 local M = {}
 
 local utils = require('nvim-stratus.utils')
 local core = require('nvim-stratus.core')
 local separators = require('nvim-stratus.ui.separators')
-local cp = require('catppuccin.core.color_palette')
+local cp = require('catppuccin.core.color_palette') -- TODO: Move this outside of the nvim-stratus plugin.
 local builtins = require('nvim-stratus.builtins')
 
 M.setup = function ()
