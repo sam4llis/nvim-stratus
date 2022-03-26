@@ -44,10 +44,13 @@ M.attach_component = function (opts)
 
   local separator = M.add_separator(opts.separator.right, opts.detach_on)
 
-  _G.stratus = opts.operation
+  -- FIXME: We probably don't want the user to assign a name to the component,
+  -- rather this global variable iteration should just work 'Under The Hood' to
+  -- avoid this.
+  _G['stratus_' .. opts.name] = opts.operation
 
   c1 = '%#' .. name .. '_l#' .. separator
-  c2 = '%#' .. name .. '#' .. "%{v:lua.stratus()}"
+  c2 = '%#' .. name .. '#' .. '%{v:lua.stratus_' .. opts.name .. '()}'
   c3 = '%#' .. name .. '_r#' ..  separator
 
   require('nvim-stratus').compile({c1, c2, c3})
