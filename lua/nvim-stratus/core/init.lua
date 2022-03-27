@@ -2,28 +2,27 @@ local M = {}
 
 local utils = require('nvim-stratus.utils')
 
-
 M.add_separator = function (separator, detach_on)
   if detach_on == true then
     return ''
   else
     return separator
   end
-  -- require('nvim-stratus').setup()
 end
--- builtins = require('nvim-stratus.builtins')
--- opts = { name = 'TestHighlightGroup' operation = function () OR require('components.git_branch') position = 'left' style = { fg = nil, bg = nil, gui = nil, }, separator = **default global or define here** attach_on = { -- useful for stuff like wordcount etc. filetype = {} -- If this evaluates to true, call M.attach_component() }, detach_on -= nil **e.g., filetype** }
--- TODO: Would be cool to have some OOP here - detach components when they are not being used (e.g., + on file not written).
---
 
+M.get_component_id = function ()
+  _G['Stratus_Component_ID'] = _G['Stratus_Component_ID'] or 0
+  _G['Stratus_Component_ID'] = _G['Stratus_Component_ID'] + 1
+  return _G['Stratus_Component_ID']
+end
 
 M.attach_component = function (opts)
   opts.detach_on = opts.detach_on or false
 
-  -- NOTE: Maybe don't need a variable for `name` and we can just convert the function call variable to its name variable? Create highlight group for the component.
-  local name = opts.name or nil
   local style = opts.style or nil
-  utils.create_highlight_group(name, style)
+  local component_id = M.get_component_id()
+  utils.create_highlight_group(component_id, style)
+  _G['Stratus_' .. component_id] = opts.operation
 
   if opts.position == 'left' then
 
@@ -44,19 +43,12 @@ M.attach_component = function (opts)
 
   local separator = M.add_separator(opts.separator.right, opts.detach_on)
 
-  -- FIXME: We probably don't want the user to assign a name to the component,
-  -- rather this global variable iteration should just work 'Under The Hood' to
-  -- avoid this.
-  _G['stratus_' .. opts.name] = opts.operation
-
-  c1 = '%#' .. name .. '_l#' .. separator
-  c2 = '%#' .. name .. '#' .. '%{v:lua.stratus_' .. opts.name .. '()}'
-  c3 = '%#' .. name .. '_r#' ..  separator
+  c1 = '%#' .. component_id .. '_l#' .. separator
+  c2 = '%#' .. component_id .. '#' .. '%{v:lua.Stratus_' .. component_id .. '()}'
+  c3 = '%#' .. component_id .. '_r#' .. separator
 
   require('nvim-stratus').compile({c1, c2, c3})
-
 end
-
 
 M.detach_component = function ()
 end

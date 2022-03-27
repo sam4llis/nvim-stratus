@@ -18,36 +18,46 @@ local builtins = require('nvim-stratus.builtins')
 M.setup = function ()
   vim.opt.statusline = ''
 
-  -- core.attach_component({
-  --   name = 'Mode',
-  --   operation = "require('nvim-stratus.builtins').current_mode()",
-  --   style = {
-  --     fg = cp.black2,
-  --     bg = cp.teal,
-  --     gui = 'bold',
-  --   },
-  --   separator = separators.arrow,
-  --   position = 'left',
-  -- })
+  core.attach_component({
+    operation = function ()
+      return require('nvim-stratus.builtins').current_mode()
+    end,
+    style = {
+      fg = cp.black2,
+      bg = cp.teal,
+      gui = 'bold',
+    },
+    separator = separators.arrow,
+    position = 'left',
+  })
 
   -- if vim.b.gitsigns_head ~= nil then
-  --   core.attach_component({
-  --     name = 'GitBranch',
-  --     operation = "require('nvim-stratus.builtins').git_branch()",
-  --     style = {
-  --       fg = cp.black2,
-  --       bg = cp.gray2,
-  --       gui = 'bold',
-  --     },
-  --     separator = separators.arrow,
-  --     position = 'left',
-
-      -- detach_on = vim.b.gitsigns_head == nil,
-    -- })
+    core.attach_component({
+      operation = function ()
+        return require('nvim-stratus.builtins').git_branch()
+      end,
+      style = {
+        fg = cp.black2,
+        bg = cp.gray2,
+        gui = 'bold',
+      },
+      separator = separators.arrow,
+    })
   -- end
 
   core.attach_component({
-    name = 'FileName',
+    operation = function ()
+      return require('nvim-stratus.builtins').file_directory()
+    end,
+    style = {
+      fg = cp.black2,
+      bg = cp.gray2,
+      gui = 'bold',
+    },
+    separator = separators.arrow,
+  })
+
+  core.attach_component({
     operation = function ()
       return require('nvim-stratus.builtins').filename()
     end,
@@ -57,14 +67,11 @@ M.setup = function ()
       gui = 'bold',
     },
     separator = separators.arrow,
-    position = 'left',
   })
-
 
   -- -- FIXME: moving around diagnostics using [g or ]g causes modification glitch in separators.
   -- -- TODO: Disable on no LSP detected on buffer.
   -- core.attach_component({
-  --   name = 'LSP',
   --   operation = "require('nvim-stratus.builtins').get_lsp_diagnostic()",
   --   style = {
   --     fg = cp.black2,
@@ -77,19 +84,20 @@ M.setup = function ()
   --   position = 'left',
   -- })
 
-  -- core.attach_component({
-  --   name = 'Modified',
-  --   operation = "require('nvim-stratus.builtins').modified()",
-  --   style = {
-  --     fg = cp.black2,
-  --     bg = cp.yellow,
-  --     gui = 'bold',
-  --   },
-  --   separator = separators.arrow,
-  --   detach_on = vim.bo.modified == false,
-  --   position = 'left',
-  --   update_on = {'BufModifiedSet'},
-  -- })
+  core.attach_component({
+    operation = function ()
+      return require('nvim-stratus.builtins').modified()
+    end,
+    style = {
+      fg = cp.black2,
+      bg = cp.yellow,
+      gui = 'bold',
+    },
+    separator = separators.arrow,
+    detach_on = vim.bo.modified == false,
+    position = 'left',
+    -- update_on = {'BufModifiedSet'},
+  })
 
 end
 
