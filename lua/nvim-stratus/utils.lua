@@ -1,12 +1,17 @@
 local M = {}
 
--- FIXME: Function doesn't work if an option is not specified.
 -- TODO: Something like if group.pos = 1 or END, remove highlight group accordingly.
 -- TODO: Documentation.
 M.create_highlight_group = function (group, opts)
 
-  for _, opt in pairs(opts) do
-    opts.opt = opts.opt == nil and '' or opts.opt
+  local default_opts = {
+    fg = '#111111',
+    bg = '#FFFFFF',
+    gui = 'NONE',
+  }
+
+  for k, v in pairs(default_opts) do
+    opts[k] = opts[k] or v
   end
 
   vim.cmd(string.format('highlight %s   guifg=%s guibg=%s gui=%s', group, opts.fg, opts.bg, opts.gui))
