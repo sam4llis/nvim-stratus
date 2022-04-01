@@ -1,31 +1,33 @@
+-- FIXME: Double whitespace needs to be added to statusline.
+
 local M = {}
 local utils = require('nvim-stratus.utils')
 
 M.current_mode = function ()
   local modes = require('nvim-stratus.ui.modes')
   local mode = modes[vim.api.nvim_get_mode().mode]
-  return string.format(' %s ', mode):upper()
+  return string.format('  %s ', mode):upper()
 end
 
 -- TODO: gitsigns conditional
 M.git_branch = function ()
   local branch = vim.b.gitsigns_head
-  return string.format('  %s ', branch)
+  return string.format('   %s ', branch)
 end
 
 M.filename = function ()
-  return string.format(' %s ', vim.fn.expand('%:t'))
+  return string.format('  %s ', vim.fn.expand('%:t'))
 end
 
 M.file_directory = function ()
-  return string.format(' ﱮ %s ', vim.fn.expand('%:p:h:t'))
+  return string.format('  ﱮ %s ', vim.fn.expand('%:p:h:t'))
 end
 
 M.modified = function ()
   if vim.bo.modified then
-    return ' + '
+    return '  + '
   elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-    return ' - '
+    return '  - '
   end
   return ''
 end

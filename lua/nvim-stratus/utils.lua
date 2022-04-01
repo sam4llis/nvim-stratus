@@ -1,7 +1,7 @@
+-- TODO: Documentation.
 local M = {}
 
 -- TODO: Something like if group.pos = 1 or END, remove highlight group accordingly.
--- TODO: Documentation.
 M.create_highlight_group = function (group, opts)
 
   local default_opts = {
@@ -21,13 +21,34 @@ M.create_highlight_group = function (group, opts)
 end
 
 
--- TODO: Documentation.
+M.create_separator = function (separator, operation)
+  if operation == '' then
+    return ''
+  else
+    return separator
+  end
+end
+
+
+M.create_component_globals = function (component_id, opts)
+
+  local prefix = string.format('Stratus_%s', component_id)
+
+  _G[ prefix ] = opts.operation
+  _G[ string.format('%s_separator', prefix) ] = opts.separator.right
+  _G[ string.format('%s_create_separator', prefix) ] = M.create_separator
+  _G[ string.format('%s_detach_on', prefix) ] = opts.detach_on or ''
+end
+
+
 M.remove_highlight_group = function (group)
 end
 
 
-M.ternary = function (cond, T, F)
-  if cond then return T else return F end
+M.get_component_id = function ()
+  _G['Stratus_Component_ID'] = _G['Stratus_Component_ID'] or 0
+  _G['Stratus_Component_ID'] = _G['Stratus_Component_ID'] + 1
+  return _G['Stratus_Component_ID']
 end
 
 return M

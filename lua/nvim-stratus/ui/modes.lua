@@ -1,4 +1,5 @@
--- -- FIXME: Modes 'V.Block' and 'S.Block' do not work.
+-- FIXME: Modes 'V.Block' and 'S.Block' do not work.
+-- TODO: Add option to change colour of background on mode change.
 local M = {
   ['n'] = 'NORMAL',
   ['no'] = 'OP',
