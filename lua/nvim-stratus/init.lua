@@ -29,12 +29,10 @@ M.compile = function (components, position)
   _G['Stratus_Components_Centre'] = _G['Stratus_Components_Centre'] or {}
   _G['Stratus_Components_Right'] = _G['Stratus_Components_Right'] or {}
   if position == 'left' then
-    print('table left')
     for _, c in pairs(components) do
       table.insert(_G['Stratus_Components_Left'], c)
     end
   elseif position == 'right' then
-    print('table right')
     for _, c in pairs(components) do
       table.insert(_G['Stratus_Components_Right'], c)
     end

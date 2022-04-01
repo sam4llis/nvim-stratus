@@ -11,12 +11,18 @@ M.create_highlight_group = function (group, opts)
   }
 
   for k, v in pairs(default_opts) do
-    opts[k] = opts[k] or v
+    opts.style[k] = opts.style[k] or v
   end
 
-  vim.cmd(string.format('highlight %s   guifg=%s guibg=%s gui=%s', group, opts.fg, opts.bg, opts.gui))
-  vim.cmd(string.format('highlight %s_l guifg=%s guibg=%s gui=%s', group, opts.fg, opts.bg, opts.gui))
-  vim.cmd(string.format('highlight %s_r guifg=%s guibg=%s gui=%s', group, opts.bg, opts.fg, opts.gui))
+  if opts.position == 'left' then
+    vim.cmd(string.format('highlight %s   guifg=%s guibg=%s gui=%s', group, opts.style.fg, opts.style.bg, opts.style.gui))
+    vim.cmd(string.format('highlight %s_l guifg=%s guibg=%s gui=%s', group, opts.style.fg, opts.style.bg, opts.style.gui))
+    vim.cmd(string.format('highlight %s_r guifg=%s guibg=%s gui=%s', group, opts.style.bg, opts.style.fg, opts.style.gui))
+  elseif opts.position == 'right' then
+    vim.cmd(string.format('highlight %s   guifg=%s guibg=%s gui=%s', group, opts.style.fg, opts.style.bg, opts.style.gui))
+    vim.cmd(string.format('highlight %s_l guifg=%s guibg=%s gui=%s', group, opts.style.bg, opts.style.fg, opts.style.gui))
+    vim.cmd(string.format('highlight %s_r guifg=%s guibg=%s gui=%s', group, opts.style.fg, opts.style.bg, opts.style.gui))
+  end
 
 end
 
@@ -35,7 +41,7 @@ M.create_component_globals = function (component_id, opts)
   local prefix = string.format('Stratus_%s', component_id)
 
   _G[ prefix ] = opts.operation
-  _G[ string.format('%s_separator', prefix) ] = opts.separator.right
+  _G[ string.format('%s_separator', prefix) ] = opts.sep
   _G[ string.format('%s_create_separator', prefix) ] = M.create_separator
   _G[ string.format('%s_detach_on', prefix) ] = opts.detach_on or ''
 end
