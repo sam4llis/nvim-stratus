@@ -75,7 +75,6 @@ local components = {
       gui= 'bold',
     },
     separator = separators.arrow,
-    detach_on = vim.bo.modified,
   },
 }
 
