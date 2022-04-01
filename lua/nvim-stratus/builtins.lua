@@ -11,8 +11,12 @@ end
 
 -- TODO: gitsigns conditional
 M.git_branch = function ()
-  local branch = vim.b.gitsigns_head
-  return string.format('   %s ', branch)
+  local branch = vim.b.gitsigns_head or ''
+  if branch ~= '' then
+    return string.format('   %s ', branch)
+  else
+    return ''
+  end
 end
 
 M.filename = function ()
