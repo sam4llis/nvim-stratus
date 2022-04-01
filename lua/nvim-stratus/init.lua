@@ -1,6 +1,5 @@
 -- TODO: add 'format' to 'attach_components', e.g.,
 --   format = [block (current/default), strata (continous without spaces)].
--- TODO: Create components for word count, spell=on, etc.
 -- TODO: Add '?change_on_colour? = true' option for 'attach_component' objects,
 --   which changes background of components on mode change.
 

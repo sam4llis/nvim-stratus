@@ -1,7 +1,6 @@
 -- FIXME: Double whitespace needs to be added to statusline.
 
 local M = {}
-local utils = require('nvim-stratus.utils')
 
 M.current_mode = function ()
   local modes = require('nvim-stratus.ui.modes')
@@ -9,14 +8,22 @@ M.current_mode = function ()
   return string.format('  %s ', mode):upper()
 end
 
--- TODO: gitsigns conditional
 M.git_branch = function ()
   local branch = vim.b.gitsigns_head or ''
-  if branch ~= '' then
-    return string.format('   %s ', branch)
-  else
-    return ''
+  if branch == '' then return '' end
+  return string.format('   %s ', branch)
+end
+
+M.word_count = function ()
+  local words = tostring(vim.fn.wordcount().words)
+  return string.format('  %s Words ', words)
+end
+
+M.spell_check = function ()
+  if vim.opt['spell']._value then
+    return string.format('  %s ', vim.bo.spelllang)
   end
+  return ''
 end
 
 M.filename = function ()
