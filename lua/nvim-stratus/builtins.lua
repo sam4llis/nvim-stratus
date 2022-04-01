@@ -16,7 +16,12 @@ M.git_branch = function ()
 end
 
 M.filename = function ()
-  return string.format('  %s ', vim.fn.expand('%:t'))
+  local filename = vim.fn.expand('%:t')
+  if filename ~= '' then
+    return string.format('  %s ', filename)
+  else
+    return ''
+  end
 end
 
 M.file_directory = function ()
