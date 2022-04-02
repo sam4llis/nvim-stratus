@@ -12,7 +12,8 @@ end
 
 local M = {}
 
-M.setup = function (components)
+-- TODO: Make use of `mode_colors`.
+M.setup = function (components, mode_colors)
   vim.opt.statusline = ''
   for _, component in pairs(components) do
     require('nvim-stratus.core').attach_component(component)
