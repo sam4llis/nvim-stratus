@@ -35,9 +35,7 @@ local builtins = require('nvim-stratus.builtins')
 
 local components = {
   {
-    operation = function ()
-      return builtins.current_mode()
-    end,
+    operation = builtins.current_mode,
     style = {
       fg = cp.black2,
       bg = cp.gray2,
@@ -46,9 +44,7 @@ local components = {
     separator = separators.arrow,
   },
   {
-    operation = function ()
-      return builtins.git_branch()
-    end,
+    operation = builtins.git_branch,
     style = {
       fg = cp.black2,
       bg = cp.gray2,
@@ -57,9 +53,7 @@ local components = {
     separator = separators.arrow,
   },
   {
-    operation = function ()
-      return builtins.filename()
-    end,
+    operation = builtins.filename,
     style = {
       fg = cp.black2,
       bg = cp.pink,
@@ -68,9 +62,7 @@ local components = {
     separator = separators.arrow,
   },
   {
-    operation = function ()
-      return builtins.modified()
-    end,
+    operation = builtins.modified,
     style = {
       fg = cp.black2,
       bg = cp.pink,
@@ -79,9 +71,7 @@ local components = {
     separator = separators.arrow,
   },
   {
-    operation = function ()
-      return builtins.spell_check()
-    end,
+    operation = builtins.spell_check,
     style = {
       fg = cp.black2,
       bg = cp.pink,
@@ -91,9 +81,7 @@ local components = {
     position = 'right',
   },
   {
-    operation = function ()
-      return builtins.file_directory()
-    end,
+    operation = builtins.file_directory,
     style = {
       fg = cp.black2,
       bg = cp.pink,
@@ -103,9 +91,7 @@ local components = {
     position = 'right',
   },
   {
-    operation = function ()
-      return builtins.percentage_line_count()
-    end,
+    operation = builtins.percentage_line_count,
     style = {
       fg = cp.black2,
       bg = cp.gray2,
