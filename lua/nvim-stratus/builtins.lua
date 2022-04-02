@@ -1,17 +1,19 @@
 -- FIXME: Double whitespace needs to be added to statusline.
 
 local M = {}
+local utils = require('nvim-stratus.utils')
 
 M.current_mode = function ()
   local modes = require('nvim-stratus.ui.modes')
   local mode = modes[vim.api.nvim_get_mode().mode]
-  return string.format('  %s ', mode):upper()
+  return utils.surround_whitespace(mode):upper()
 end
 
 M.git_branch = function ()
   local branch = vim.b.gitsigns_head or ''
   if branch == '' then return '' end
-  return string.format('   %s ', branch)
+  local s = string.format(' %s', branch)
+  return utils.surround_whitespace(s)
 end
 
 M.word_count = function ()

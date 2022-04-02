@@ -57,4 +57,10 @@ M.get_component_id = function ()
   return _G['Stratus_Component_ID']
 end
 
+
+M.surround_whitespace = function (operation)
+  local space = ' ' -- This is a Unicode Space!
+  return space .. operation .. space
+end
+
 return M
