@@ -3,6 +3,8 @@
 A Neovim plugin to attach customisable components to the statusline. Written in
 Lua.
 
+![An example nvim-stratus statusline.](https://github.com/sam4llis/nvim-stratus/blob/main/img/nvim-stratus-main-image.png)
+
 ## Installation
 
 You can install this plugin with your favourite package manager. As an example,
@@ -38,7 +40,7 @@ local components = {
     end,
     style = {
       fg = cp.black2,
-      bg = cp.white,
+      bg = cp.gray2,
       gui= 'bold',
     },
     separator = separators.arrow,
@@ -49,7 +51,7 @@ local components = {
     end,
     style = {
       fg = cp.black2,
-      bg = cp.white,
+      bg = cp.gray2,
       gui= 'bold',
     },
     separator = separators.arrow,
@@ -60,7 +62,7 @@ local components = {
     end,
     style = {
       fg = cp.black2,
-      bg = cp.flamingo,
+      bg = cp.pink,
       gui= 'bold',
     },
     separator = separators.arrow,
@@ -71,10 +73,46 @@ local components = {
     end,
     style = {
       fg = cp.black2,
-      bg = cp.flamingo,
+      bg = cp.pink,
       gui= 'bold',
     },
     separator = separators.arrow,
+  },
+  {
+    operation = function ()
+      return builtins.spell_check()
+    end,
+    style = {
+      fg = cp.black2,
+      bg = cp.pink,
+      gui= 'bold',
+    },
+    separator = separators.arrow,
+    position = 'right',
+  },
+  {
+    operation = function ()
+      return builtins.file_directory()
+    end,
+    style = {
+      fg = cp.black2,
+      bg = cp.pink,
+      gui= 'bold',
+    },
+    separator = separators.arrow,
+    position = 'right',
+  },
+  {
+    operation = function ()
+      return builtins.percentage_line_count()
+    end,
+    style = {
+      fg = cp.black2,
+      bg = cp.gray2,
+      gui= 'bold',
+    },
+    separator = separators.arrow,
+    position = 'right',
   },
 }
 
