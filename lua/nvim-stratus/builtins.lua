@@ -48,6 +48,12 @@ M.modified = function ()
   return ''
 end
 
+M.percentage_line_count = function ()
+  local lines = vim.fn.line('$')
+  local percentage = math.floor(vim.fn.line('.') / lines * 100) .. '%'
+  return string.format('  %s/%s ', percentage, lines)
+end
+
 M.get_lsp_diagnostic = function ()
   -- TODO: this needs some work, see :h vim.diagnostic.get()
   -- TODO: hide this if no LSP is enabled.
