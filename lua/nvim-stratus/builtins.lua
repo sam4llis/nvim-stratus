@@ -109,7 +109,7 @@ M.percentage_line_count = function ()
   return string.format('  %s/%s ', percentage, lines)
 end
 
--- TODO: DocString
+-- TODO: Documentation
 M.get_lsp_diagnostic = function ()
   -- TODO: this needs some work, see :h vim.diagnostic.get()
   -- TODO: hide this if no LSP is enabled.

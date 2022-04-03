@@ -1,7 +1,21 @@
 -- TODO: Documentation.
 local M = {}
 
--- TODO: Something like if group.pos = 1 or END, remove highlight group accordingly.
+--
+-- @desc:
+--   Function that creates highlight groups for stratus component. Default
+--   highlight options are overwritten if the user supplies this function with
+--   their own options.
+-- @param group: string
+--   The name of the highlight group.
+-- @param opts: table | nil
+--   User-specified highlight options.
+--   keys:
+--     fg - Foreground colour for the highlight group.
+--     bg - Background colour for the highlight group.
+--     gui - GUI mode attributes (e.g., bold font).
+-- @return: nil
+--
 M.create_highlight_group = function (group, opts)
 
   local default_opts = {
@@ -27,6 +41,18 @@ M.create_highlight_group = function (group, opts)
 end
 
 
+--
+-- @desc:
+--   Function that returns a separator dependent on the input of an operation.
+-- @param separator: string
+--   The separator to be used if operation is true.
+-- @param operation: string
+--   The output of an operation function (e.g., the output of a function from
+--   nvim-startus' builtins directory).
+-- @return: string
+--   An empty string if the operation input is also an empty string.
+--   The separator input if the operation is not an empty string.
+--
 M.create_separator = function (separator, operation)
   if operation == '' then
     return ''
@@ -36,6 +62,7 @@ M.create_separator = function (separator, operation)
 end
 
 
+-- TODO: Documentation
 M.create_component_globals = function (component_id, opts)
 
   local prefix = string.format('Stratus_%s', component_id)
@@ -47,10 +74,17 @@ M.create_component_globals = function (component_id, opts)
 end
 
 
+-- TODO: Would this function be useful?
 M.remove_highlight_group = function (group)
 end
 
 
+--
+-- @desc:
+--   Function that returns a unique ID for nvim-stratus components.
+-- @return: int
+--   A unique integer to identify distinct nvim-stratus components.
+--
 M.get_component_id = function ()
   _G['Stratus_Component_ID'] = _G['Stratus_Component_ID'] or 0
   _G['Stratus_Component_ID'] = _G['Stratus_Component_ID'] + 1
@@ -58,6 +92,15 @@ M.get_component_id = function ()
 end
 
 
+--
+-- @desc:
+--   Function that encapsulates its input in Unicode space characters.
+--   A Unicode space is required as items within the statusline surrounded by
+--   %{} require two leading spaces to insert a singular space - a Unicode
+--   space character negates the need for this.
+-- @return: string
+--   The input encapsulated by Unicode space characters.
+--
 M.surround_whitespace = function (operation)
   local space = ' ' -- This is a Unicode Space!
   return space .. operation .. space
