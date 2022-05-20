@@ -93,16 +93,13 @@ end
 
 --
 -- @desc:
---   Function that encapsulates its input in Unicode space characters.
---   A Unicode space is required as items within the statusline surrounded by
---   %{} require two leading spaces to insert a singular space - a Unicode
---   space character negates the need for this.
+--   Function that encapsulates its input in space characters.
 -- @return: string
---   The input encapsulated by Unicode space characters.
+--   The input encapsulated in space characters.
 --
 M.surround_whitespace = function (operation)
-  local space = ' ' -- This is a Unicode Space!
-  return space .. operation .. space
+  local space = ' '
+  return space .. space .. operation .. space
 end
 
 return M
